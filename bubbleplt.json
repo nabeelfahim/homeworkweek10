@@ -1,0 +1,71 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "title": "How Age and Experience Influence Salary",
+    "data": {
+      "url": "Salary_Data.csv"
+    },
+    "params": [
+      {
+        "name": "Age_Above",
+        "value": 20,
+        "bind": {
+          "input": "range",
+          "min": 20,
+          "max": 42,
+          "step": 1,
+          "name": "Minimum Age: "
+        }
+      }
+    ],
+    "transform": [{"filter": "datum.Age > Age_Above"}],
+    "encoding": {
+      "x": {
+        "field": "Age",
+        "type": "quantitative",
+        "title": "Age of individual",
+        "scale": {"domain": [20, 42]}
+      },
+      "y": {
+        "field": "Salary",
+        "type": "quantitative",
+        "title": "Salary in $"
+      }
+    },
+    "layer": [
+      {
+        "mark": "circle",
+        "encoding": {
+          "size": {
+            "field": "YearsExperience",
+            "type": "quantitative"
+          },
+          "tooltip": [
+            {"field": "YearsExperience", "type": "nominal"},
+            {"field": "Salary", "type": "nominal"},
+            {"field": "Age", "type": "nominal", "format": ".0f"}
+          ]
+        }
+      },
+      {
+        "mark": {"type": "text", "baseline": "middle", "align": "left"},
+        "encoding": {
+          "x": {"value": 400}, 
+          "y": {"value": 50},
+          "text": {"value": "Experienced"},
+          "color": {"value": "blue"}
+        }
+      },
+      {
+        "mark": {"type": "text", "baseline": "middle", "align": "left"},
+        "encoding": {
+          "x": {"value": 45}, 
+          "y": {"value": 300},
+          "text": {"value": "Inexperienced"},
+          "color": {"value": "orange"}
+        }
+      }
+    ]
+  }
+  
